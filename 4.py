@@ -20,5 +20,5 @@ print(name[2:4   ]) #first character
 print(name [:5])
 print(name [::4]) #step size
 print(name [::-3]) #reverse string with step size 3
-name = "manoj is very good boy"
-print(name.find("very")) #find the index of the word    
+s = "manoj \t           is very good boy"
+print(s) #find the index of the word    
