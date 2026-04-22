@@ -1,0 +1,1 @@
+int = int(input("entr a 5 in gumber"))
