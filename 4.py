@@ -8,3 +8,4 @@ message = "Warning "
 
 print(message.upper()   )
 print(message.lower()*6 )
+print(message.strip()*3)
