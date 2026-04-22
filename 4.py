@@ -22,3 +22,5 @@ print(name [::4]) #step size
 print(name [::-3]) #reverse string with step size 3
 s = "manoj \t           is very good boy"
 print(s) #find the index of the word    
+j = "yash is famus actor"
+print(j)
