@@ -6,3 +6,9 @@ print(7 in my_list)
 print( 7 not in my_list)
 print( "G" in my_name)
 print( "g" in my_name)
+
+
+my_sis = "Gagana"
+my_teacher = "Gagana B"
+print(("B" in  my_sis  ) and ("B" in my_teacher))
+print(("B" in  my_sis  ) or ("B" in my_teacher))
