@@ -29,3 +29,6 @@ print(lists[0:4:2])
 fruits = ["apple" , "banana" , "grapes" , "orange" , "kiwi" , "melon" , "watermelon" , "peach" , "pear" , "plum"]
 print(fruits[-2:0:-2])
 print(fruits[1::3])
+print(len(fruits))
+num = [9,8,7,5,3,1,2,4,6]
+print(list(reversed(num)))
