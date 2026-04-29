@@ -7,10 +7,7 @@ print( 7 not in my_list)
 print( "G" in my_name)
 print( "g" in my_name)
 
-hmm = "Gagana"
-print("G" in hmm)   
-nw = "Gagana B"
-print("B" in nw)        
+
 my_sis = "Gagana"
 my_teacher = "Gagana B"
 print(("B" in  my_sis  ) and ("B" in my_teacher))
