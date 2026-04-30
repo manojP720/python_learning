@@ -14,7 +14,11 @@ print(type(thistuple))
 thistuple = ("apple")
 print(type(thistuple))
 tuple1 = (1, 2, 3, 4, 5, (6, 7, 8, 9, 10)   )
-print(tuple1
-)
+print(tuple1)
 set = {1, 2, 3, 4, 58746,63657,    }   
 print(set)
+s1 = {1, 2, 3, 4, 5}
+s2 = {4, 5, 6, 7, 8}
+print( s1 | s2 )
+print( s1 & s2 )
+print( s1 - s2 )
