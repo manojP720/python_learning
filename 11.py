@@ -13,5 +13,6 @@ meaning = {
     "parents": "god"
 }
 
-print(birthday["Gagan"])
-print(meaning["good"])
+print(birthday)
+birthday["Manoj"] = "20-11-2006"
+print(birthday)
