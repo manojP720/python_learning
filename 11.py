@@ -24,4 +24,5 @@ habits = {
 }
 
 print(habits["good body"] )
+print(habits["good communication"] )
 
