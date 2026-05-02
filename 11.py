@@ -16,3 +16,12 @@ meaning = {
 print(birthday)
 birthday["Manoj"] = "20-11-2006"
 print(birthday)
+
+habits = {
+    "good body" : "good look",
+    "good communication" : "good body language"
+
+}
+
+print(habits["good body"] )
+
