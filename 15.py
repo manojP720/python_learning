@@ -4,9 +4,26 @@
 is_failed = True
 i = 1
 while is_failed :
+
+    if i%2!=0 :
+        i = i+1
+        continue
+
     print(f"try {i}")
-    i = i+2
-    if i > 10 :
+    i = i+1
+    
+    if i > 5:
         break
 
-print("You have failed 10 times. Better luck next time !")
+print("You have failed 5 times. Better luck next time !")
+
+
+i = 0
+while i <= 10 :
+    x = 0
+    while  x <= i :
+        print( " Manoj ",)
+        x += 1
+
+    
+    i += 1
