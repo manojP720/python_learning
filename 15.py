@@ -24,6 +24,22 @@ while i <= 10 :
     while  x <= i :
         print( " Manoj ", end="_")
         x += 1
-
+    print("")
     
     i += 1
+
+
+available_sets = 10 
+while available_sets > 0 :
+    print(f"Available sets are {available_sets}")
+    booking = input("If you want a set as a reseverd set ? (yes/no) : ").lower()
+
+    if booking == "yes" :
+        available_sets -= 1
+        print("Your set is reserved !")
+
+    else :
+        print(" Sorry, you have to reserve a set to get it !")
+
+print("All sets are reserved !")            
+    
