@@ -22,7 +22,7 @@ i = 0
 while i <= 10 :
     x = 0
     while  x <= i :
-        print( " Manoj ",)
+        print( " Manoj ", end="_")
         x += 1
 
     
