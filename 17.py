@@ -1,9 +1,11 @@
 #while loop
 pin = "1234"
+trials = 1
 
-while True :
+while trials <= 3 :
   
-  input_pin = input("PIN >>")
+  input_pin = input(f"Trials- {trials} | PIN >>")
+  trials += 1
 
 
   if input_pin == pin :
