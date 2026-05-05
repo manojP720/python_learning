@@ -10,3 +10,8 @@ bag = ["red","blue","green"]
 for color in bag :
     print( color, end=" ")
       
+
+
+
+for i in range (1,15,3) :
+    print(i,end="   ")
