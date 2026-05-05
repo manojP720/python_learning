@@ -4,3 +4,9 @@
 cities = ["delhi", "mumbai", "kolkota", "chennai"]
 for city in cities :
     print(city)
+
+
+bag = ["red","blue","green"]
+for color in bag :
+    print( color, end=" ")
+      
