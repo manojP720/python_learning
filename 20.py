@@ -5,5 +5,5 @@ for i in food :
 
 
 stundents_marks = {"manoj": 25, "suresh": 30, "ramesh": 35}
-for i in stundents_marks.values():
-    print(i)
+for i in stundents_marks.items():
+    print(f"{i[0]} : {i[1]}")
