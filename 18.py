@@ -13,5 +13,10 @@ for color in bag :
 
 
 
-for i in range (1,15,3) :
-    print(i,end="   ")
+for i in range (1,15,3 ) :
+    print(i/3)
+
+
+name = "Manoj"
+for letter in name :
+    print(letter *6)
