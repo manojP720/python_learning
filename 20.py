@@ -13,4 +13,3 @@ stundents = ("manoj", "suresh", "ramesh")
 marks = [25, 30, 35]
 for i , j in zip(stundents, marks) :
     print(f"{i} --> {j}")
-
