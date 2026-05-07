@@ -5,5 +5,12 @@ for i in food :
 
 
 stundents_marks = {"manoj": 25, "suresh": 30, "ramesh": 35}
-for i in stundents_marks.items():
-    print(f"{i[0]} : {i[1]}")
+for i , j in stundents_marks.items():
+    print(f"{i}--> {j}")
+
+
+stundents = ("manoj", "suresh", "ramesh")
+marks = [25, 30, 35]
+for i , j in zip(stundents, marks) :
+    print(f"{i} --> {j}")
+
