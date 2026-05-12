@@ -5,7 +5,7 @@ qr = qrcode.QRCode(
     box_size=10,
     border=5
 )
-data = "https://www.instagram.com/gagana_ag/"
+data = "https://github.com/manojP720"
 
 qr.add_data(data)
 qr.make(fit=True)
