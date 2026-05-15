@@ -61,9 +61,5 @@ class Order:
             print("6. Check Out")
             print("7. Exit") 
             choice = input("Select an option: ").strip()
-            if choice in ['1', '2', '3', '4']:   
-
-    
-
-
-
+            if choice in ['1', '2', '3', '4']:
+                order.add_item(menu[int(choice) - 1])
