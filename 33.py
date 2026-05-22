@@ -1,3 +1,10 @@
 def top_words():
     file = open ("sample.txt","r")
-    text = file
+    text = file.read().lower()
+    file.close()
+
+
+    words = text.split()
+    freq = {}
+
+
