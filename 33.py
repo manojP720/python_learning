@@ -1,5 +1,5 @@
 def top_words():
-    file = open ("sample.txt","r")
+    file = open ("input.txt","r")
     text = file.read().lower()
     file.close()
 
@@ -29,5 +29,5 @@ def top_words():
     top_words()
 
 
-    
-                   
+
+
