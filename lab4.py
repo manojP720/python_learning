@@ -16,5 +16,14 @@ def top_words():
 
     for i in range(len(items)):
         for j in range(i + 1,len(items)):
-                   
-    
+            if items[i][1] < items[j][1]
+            temp = items[i]
+            items[i] = items[j]
+            items[j] = temp
+
+    print("top 10 words")
+    for i in range(min(10,items))
+
+    print("items[i][0]",":","items[j][1]")
+
+        
