@@ -15,7 +15,7 @@ def top_words():
 
     items = list(freq.items()) 
 
-    for i in range(len(items)):
+    for i in range(len(items)):     
         for j in range(i + 1,len(items)):
             if items[i][1] < items[j][1]:
                 temp = items[i]
