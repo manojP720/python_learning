@@ -7,5 +7,14 @@ def top_words():
     freq = {}
 
     for w in words:
-        for i in range
+        if w in freq :
+            freq[w] += 1
+        else:
+            freq[w] = 1
+
+    items = list(freq.items()) 
+
+    for i in range(len(items)):
+        for j in range(i + 1,len(items)):
+                   
     
