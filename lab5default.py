@@ -1,9 +1,8 @@
 def sort_marks():
     marks = []
-    
-    print("enter 6 marks")
 
-    for i  in range(6):
+    print("enter 6 sub of marks")
+    for i in range(6):
         m = int(input())
         marks.append(m)
 
@@ -14,8 +13,9 @@ def sort_marks():
                 marks[j] = marks[j + 1]
                 marks[j + 1] = temp
 
+
     print("high to low")
     for m in marks:
-     print(m)
+        print(m)
 
-sort_marks()            
+sort_marks()
