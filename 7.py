@@ -12,9 +12,3 @@ my_sis = "Gagana"
 my_teacher = "Gagana B"
 print(("B" in  my_sis  ) and ("B" in my_teacher))
 print(("B" in  my_sis  ) or ("B" in my_teacher))
- for i in range(len(items)):     
-        for j in range(i + 1,len(items)):
-            if items[i][1] < items[j][1]:
-                temp = items[i]
-                items[i] = items[j]
-                items[j] = temp
