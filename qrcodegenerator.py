@@ -5,7 +5,7 @@ qr = qrcode.QRCode(
     box_size=10,
     border=5
 )
-data = "https://github.com/manojP720"
+data = "https://youtu.be/kWkMjYPbLeE?si=MVEBbC5PP8r9kBl4"
 
 qr.add_data(data)
 qr.make(fit=True)
