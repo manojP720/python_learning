@@ -4,4 +4,6 @@ bgcolor("black")
 colors = ['orange' , 'white']
 hideturtle()
 for i in range(122):
+     goto(0 , 0)
+     color(colors[i % 2])
      
