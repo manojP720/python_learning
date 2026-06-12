@@ -26,14 +26,17 @@ const server = http.createServer((req, res) => {
             day: 2
         }))
 
-    } else {
-        // Any other URL → 404
-        res.writeHead(404)
+    
+    } else if(req.url === '/skills' && req.method === 'GET') {
+        res.writeHead(200)
         res.end(JSON.stringify({
-            error: "Route not found",
-            path: req.url
+            skills : ["HTTP", "Node.js", "Express" ]
         }))
-    }
+    } else {
+
+    }        
+
+
 })
 
 // Start listening on port 3000
