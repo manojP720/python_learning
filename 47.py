@@ -11,4 +11,12 @@ tracer(0,0)
 for i in range(1,75):
     penup()
     goto(0,0)
-    
+    setheading(i*4)
+    forward(8)
+    pendown()
+    forward(1*5)
+    penup()
+    goto(0,0)
+    setheading(i*4+180)
+    forward(8)
+    pendown()
