@@ -20,3 +20,7 @@ for i in range(1,75):
     setheading(i*4+180)
     forward(8)
     pendown()
+    forward(1*5)
+    update()
+    time.sleep(0.02)
+done()
