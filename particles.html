@@ -3,137 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>  Bharath website </title>
+    <title>Bharath Website</title>
     <style>
-        /* Reset margins and hide scrollbars */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --cyan: #4deaff; --blue: #2677ff; --green: #32ffc0; --pink: #ff4fd8; }
+        html, body { width: 100%; min-height: 100%; }
         body {
-            background-color: #000000;
+            min-height: 100vh;
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Canvas fits the entire screen */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        /* Overlay content on top of the particles */
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            background:
+                radial-gradient(circle at 50% 45%, rgba(38, 119, 255, 0.22), transparent 26%),
+                radial-gradient(circle at 22% 18%, rgba(77, 234, 255, 0.18), transparent 24%),
+                radial-gradient(circle at 80% 76%, rgba(255, 79, 216, 0.12), transparent 28%),
+                linear-gradient(135deg, #02050b 0%, #06111f 46%, #02050b 100%);
             color: #ffffff;
-            text-align: center;
-            z-index: 2;
-            pointer-events: none; /* Allows clicking through text */
+            font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; }
+        body::before {
+            z-index: 0;
+            background:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: radial-gradient(circle at center, black 0 48%, transparent 78%);
+            animation: boardDrift 22s linear infinite;
+        }
+        body::after {
+            z-index: 3;
+            background: linear-gradient(180deg, transparent, rgba(77, 234, 255, 0.08), transparent);
+            height: 28vh;
+            transform: translateY(-35vh);
+            mix-blend-mode: screen;
+            animation: scanLine 4.4s ease-in-out infinite;
+        }
+        canvas { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; }
+        .tech-frame {
+            position: fixed;
+            inset: clamp(14px, 3vw, 38px);
+            z-index: 2;
+            border: 1px solid rgba(77, 234, 255, 0.2);
+            pointer-events: none;
+            clip-path: polygon(0 28px, 28px 0, calc(100% - 28px) 0, 100% 28px, 100% calc(100% - 28px), calc(100% - 28px) 100%, 28px 100%, 0 calc(100% - 28px));
+            box-shadow: inset 0 0 32px rgba(77, 234, 255, 0.1), 0 0 60px rgba(38, 119, 255, 0.1);
+        }
+        .tech-frame::before, .tech-frame::after {
+            content: "";
+            position: absolute;
+            width: 22%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            animation: edgePulse 3s ease-in-out infinite;
+        }
+        .tech-frame::before { top: -1px; left: 8%; }
+        .tech-frame::after { right: 8%; bottom: -1px; animation-delay: -1.5s; }
+        .content {
+            position: relative;
+            z-index: 4;
+            display: grid;
+            min-height: 100vh;
+            place-items: center;
+            padding: 28px;
+            text-align: center;
+            pointer-events: none;
+        }
+        .intro {
+            position: relative;
+            width: min(920px, 92vw);
+            animation: introBoot 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .intro::before, .intro::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border: 1px solid rgba(77, 234, 255, 0.22);
+            border-left-color: rgba(50, 255, 192, 0.8);
+            border-right-color: rgba(255, 79, 216, 0.58);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .intro::before { width: min(680px, 86vw); aspect-ratio: 1; animation: orbitSpin 16s linear infinite; box-shadow: 0 0 36px rgba(77, 234, 255, 0.12); }
+        .intro::after { width: min(510px, 72vw); aspect-ratio: 1; animation: orbitSpin 10s linear infinite reverse; }
+        .eyebrow {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: rgba(220, 250, 255, 0.86);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-shadow: 0 0 18px rgba(77, 234, 255, 0.7);
+        }
+        .eyebrow::before, .eyebrow::after { content: ""; width: 48px; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan)); }
+        .eyebrow::after { background: linear-gradient(90deg, var(--cyan), transparent); }
         h1 {
-            font-size: 3.5rem;
-            font-weight: 500;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            font-size: clamp(3.2rem, 9.5vw, 8.5rem);
+            line-height: 0.9;
+            font-weight: 950;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 16px rgba(77, 234, 255, 0.75), 0 0 54px rgba(38, 119, 255, 0.52), 0 22px 80px rgba(0, 0, 0, 0.8);
+        }
+        .gradient-text {
+            background: linear-gradient(100deg, #ffffff 0%, #79f7ff 26%, #32ffc0 48%, #ff7ade 72%, #ffffff 100%);
+            background-size: 260% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: titleFlow 4.2s linear infinite;
+        }
+        .subtitle {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            margin: 24px auto 0;
+            color: rgba(232, 250, 255, 0.76);
+            font-size: clamp(0.98rem, 2vw, 1.18rem);
+            line-height: 1.7;
+            text-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
+        }
+        .status-row { position: relative; z-index: 1; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .status-chip {
+            min-width: 104px;
+            padding: 8px 12px;
+            border: 1px solid rgba(77, 234, 255, 0.22);
+            background: rgba(2, 10, 20, 0.42);
+            color: rgba(226, 250, 255, 0.82);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            box-shadow: inset 0 0 16px rgba(77, 234, 255, 0.07);
+        }
+        @keyframes introBoot { from { opacity: 0; transform: translateY(28px) scale(0.98); filter: blur(10px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+        @keyframes titleFlow { to { background-position: 260% center; } }
+        @keyframes orbitSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes boardDrift { to { background-position: 56px 56px; } }
+        @keyframes scanLine { 0%, 12% { transform: translateY(-35vh); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateY(110vh); opacity: 0; } }
+        @keyframes edgePulse { 50% { opacity: 0.25; transform: translateX(38px); } }
+        @media (max-width: 640px) {
+            .intro::before { width: 94vw; }
+            .intro::after { width: 76vw; }
+            .eyebrow { font-size: 0.66rem; gap: 8px; }
+            .eyebrow::before, .eyebrow::after { width: 26px; }
+            .status-chip { min-width: 88px; padding: 7px 9px; font-size: 0.62rem; }
         }
     </style>
 </head>
 <body>
-
-    <canvas id="particleCanvas"></canvas>
-
-    <div class="content">
-        <h1>Bharath weds Supriya.</h1>
-    </div>
-
+    <canvas id="techCanvas"></canvas>
+    <div class="tech-frame" aria-hidden="true"></div>
+    <main class="content">
+        <section class="intro" aria-label="Introduction">
+            <div class="eyebrow">Bharath System</div>
+            <h1><span class="gradient-text">Introduction</span></h1>
+            <p class="subtitle">A fast cinematic tech intro with moving circuits, energy nodes, scan beams, and a deep digital core.</p>
+            <div class="status-row" aria-hidden="true">
+                <span class="status-chip">Core Online</span>
+                <span class="status-chip">Signal High</span>
+                <span class="status-chip">Boot Ready</span>
+            </div>
+        </section>
+    </main>
     <script>
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById("techCanvas");
+        const ctx = canvas.getContext("2d", { alpha: true });
+        let width = 0;
+        let height = 0;
+        let pixelRatio = 1;
+        let nodes = [];
+        let traces = [];
+        let sparks = [];
+        let pointerX = 0;
+        let pointerY = 0;
+        let pointerActive = false;
 
-        // Resize canvas to fill the window
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = Math.floor(width * pixelRatio);
+            canvas.height = Math.floor(height * pixelRatio);
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+            ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            buildTechField();
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
 
-        // Particle configuration
-        const particlesArray = [];
-        const numberOfParticles = 1500; // Increase for high-density particle clouds
-
-        // Particle class definition
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5; // Small, fine particles
-                
-                // Speed and direction parameters
-                this.speedX = (Math.random() * 0.4) - 0.2; 
-                this.speedY = (Math.random() * 0.4) - 0.2;
-                
-                // Color variations: Shifting between deep blues and subtle purples
-                const randomColor = Math.random();
-                if (randomColor > 0.4) {
-                    this.color = `rgba(26, 115, 232, ${Math.random() * 0.8 + 0.2})`; // Electric Blue
-                } else {
-                    this.color = `rgba(147, 51, 234, ${Math.random() * 0.6 + 0.2})`;  // Purple
+        function buildTechField() {
+            const spacing = width < 680 ? 76 : 96;
+            const cols = Math.ceil(width / spacing) + 2;
+            const rows = Math.ceil(height / spacing) + 2;
+            nodes = [];
+            traces = [];
+            sparks = [];
+            for (let row = -1; row < rows; row += 1) {
+                for (let col = -1; col < cols; col += 1) {
+                    const x = col * spacing + (row % 2) * spacing * 0.35;
+                    const y = row * spacing;
+                    nodes.push({ x, y, baseX: x, baseY: y, drift: Math.random() * Math.PI * 2, pulse: Math.random() * Math.PI * 2, size: 1.4 + Math.random() * 2.4 });
                 }
             }
-
-            // Update particle position
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Loop particles back to the opposite side if they drift off-screen
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
+            const traceCount = Math.min(42, Math.floor((width * height) / 26000));
+            for (let i = 0; i < traceCount; i += 1) {
+                const startX = Math.random() * width;
+                const startY = Math.random() * height;
+                const steps = 3 + Math.floor(Math.random() * 4);
+                const points = [{ x: startX, y: startY }];
+                let x = startX;
+                let y = startY;
+                for (let step = 0; step < steps; step += 1) {
+                    const horizontal = Math.random() > 0.45;
+                    const distance = 70 + Math.random() * 180;
+                    x += horizontal ? (Math.random() > 0.5 ? distance : -distance) : 0;
+                    y += horizontal ? 0 : (Math.random() > 0.5 ? distance : -distance);
+                    points.push({ x: Math.max(-80, Math.min(width + 80, x)), y: Math.max(-80, Math.min(height + 80, y)) });
+                }
+                traces.push({ points, speed: 0.003 + Math.random() * 0.006, offset: Math.random(), color: Math.random() > 0.5 ? "77, 234, 255" : "50, 255, 192" });
             }
+            const sparkCount = width < 680 ? 46 : 72;
+            for (let i = 0; i < sparkCount; i += 1) {
+                sparks.push({ x: Math.random() * width, y: Math.random() * height, vx: -0.25 + Math.random() * 0.5, vy: -0.18 + Math.random() * 0.36, size: 0.7 + Math.random() * 1.6, glow: 0.35 + Math.random() * 0.5 });
+            }
+        }
 
-            // Draw particle on the canvas
-            draw() {
+        function drawCore(time) {
+            const cx = width / 2;
+            const cy = height / 2;
+            const radius = Math.min(width, height) * 0.28;
+            const pulse = Math.sin(time * 0.002) * 0.5 + 0.5;
+            const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.9);
+            glow.addColorStop(0, `rgba(77, 234, 255, ${0.17 + pulse * 0.06})`);
+            glow.addColorStop(0.36, "rgba(38, 119, 255, 0.11)");
+            glow.addColorStop(0.72, "rgba(255, 79, 216, 0.055)");
+            glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+            ctx.fillStyle = glow;
+            ctx.fillRect(0, 0, width, height);
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(time * 0.00035);
+            for (let i = 0; i < 4; i += 1) {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
+                ctx.arc(0, 0, radius * (0.5 + i * 0.24), Math.PI * 0.08, Math.PI * 1.42);
+                ctx.strokeStyle = `rgba(77, 234, 255, ${0.22 - i * 0.035})`;
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+                ctx.rotate(Math.PI * 0.38);
+            }
+            ctx.restore();
+        }
+
+        function drawNodes(time) {
+            ctx.lineWidth = 1;
+            nodes.forEach((node, index) => {
+                const wave = Math.sin(time * 0.001 + node.drift);
+                node.x = node.baseX + wave * 7;
+                node.y = node.baseY + Math.cos(time * 0.0012 + node.drift) * 7;
+                if (index % 3 === 0) {
+                    const neighbor = nodes[index + 1];
+                    if (neighbor) {
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(neighbor.x, neighbor.y);
+                        ctx.strokeStyle = "rgba(77, 234, 255, 0.075)";
+                        ctx.stroke();
+                    }
+                }
+                const dx = node.x - pointerX;
+                const dy = node.y - pointerY;
+                const hot = pointerActive ? Math.max(0, 1 - Math.hypot(dx, dy) / 170) : 0;
+                const alpha = 0.2 + (Math.sin(time * 0.003 + node.pulse) * 0.5 + 0.5) * 0.34 + hot * 0.5;
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size + hot * 2.4, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(77, 234, 255, ${alpha})`;
+                ctx.shadowColor = "rgba(77, 234, 255, 0.8)";
+                ctx.shadowBlur = 14 + hot * 22;
                 ctx.fill();
-            }
+                ctx.shadowBlur = 0;
+            });
         }
 
-        // Initialize particle field
-        function init() {
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
+        function drawTracePath(points, color, progress) {
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i += 1) ctx.lineTo(points[i].x, points[i].y);
+            ctx.strokeStyle = `rgba(${color}, 0.13)`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            const segmentIndex = Math.floor(progress * (points.length - 1));
+            const localProgress = progress * (points.length - 1) - segmentIndex;
+            const a = points[segmentIndex];
+            const b = points[Math.min(segmentIndex + 1, points.length - 1)];
+            if (!a || !b) return;
+            const headX = a.x + (b.x - a.x) * localProgress;
+            const headY = a.y + (b.y - a.y) * localProgress;
+            ctx.beginPath();
+            ctx.arc(headX, headY, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${color}, 0.95)`;
+            ctx.shadowColor = `rgba(${color}, 0.9)`;
+            ctx.shadowBlur = 22;
+            ctx.fill();
+            ctx.shadowBlur = 0;
         }
 
-        // Animation loop
-        function animate() {
-            // Semi-transparent clearing creates a subtle trailing/glowing effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function drawTraces(time) {
+            traces.forEach((trace) => {
+                const progress = (trace.offset + time * trace.speed * 0.1) % 1;
+                drawTracePath(trace.points, trace.color, progress);
+            });
+        }
 
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
+        function drawSparks() {
+            sparks.forEach((spark) => {
+                spark.x += spark.vx;
+                spark.y += spark.vy;
+                if (spark.x < -20) spark.x = width + 20;
+                if (spark.x > width + 20) spark.x = -20;
+                if (spark.y < -20) spark.y = height + 20;
+                if (spark.y > height + 20) spark.y = -20;
+                ctx.beginPath();
+                ctx.arc(spark.x, spark.y, spark.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${spark.glow})`;
+                ctx.shadowColor = "rgba(77, 234, 255, 0.9)";
+                ctx.shadowBlur = 12;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+        }
+
+        function drawVignette() {
+            const vignette = ctx.createRadialGradient(width / 2, height / 2, Math.min(width, height) * 0.18, width / 2, height / 2, Math.max(width, height) * 0.7);
+            vignette.addColorStop(0, "rgba(0, 0, 0, 0)");
+            vignette.addColorStop(1, "rgba(0, 0, 0, 0.52)");
+            ctx.fillStyle = vignette;
+            ctx.fillRect(0, 0, width, height);
+        }
+
+        function animate(time = 0) {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = "source-over";
+            drawCore(time);
+            ctx.globalCompositeOperation = "lighter";
+            drawTraces(time);
+            drawNodes(time);
+            drawSparks();
+            ctx.globalCompositeOperation = "source-over";
+            drawVignette();
             requestAnimationFrame(animate);
         }
 
-        init();
+        window.addEventListener("resize", resizeCanvas);
+        window.addEventListener("pointermove", (event) => {
+            pointerX = event.clientX;
+            pointerY = event.clientY;
+            pointerActive = true;
+        });
+        window.addEventListener("pointerleave", () => { pointerActive = false; });
+        resizeCanvas();
         animate();
     </script>
 </body>
