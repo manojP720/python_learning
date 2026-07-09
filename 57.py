@@ -1,13 +1,9 @@
-import numpy as np 
-a = np.random.randint(1,10,(3,3))
-
-print("matrix :")
-print(a)
-
-print("shape",a.shape)
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score
 
 
-print("transpose :")
-print(a.T)
 
-print("Mean :",np.mean(a))
+
